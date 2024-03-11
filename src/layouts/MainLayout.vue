@@ -25,11 +25,23 @@
     >
       <q-list>
 
-        <EssentialLink
+        <router-link
           v-for="link in essentialLinks"
           :key="link.title"
-          v-bind="link"
-        />
+          :to="link.link"
+          class="router-link"
+        >
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon :name="link.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ link.title }}</q-item-label>
+              <q-item-label caption>{{ link.caption }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+
       </q-list>
     </q-drawer>
 
@@ -39,9 +51,19 @@
   </q-layout>
 </template>
 
+<style scoped>
+.router-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.router-link:hover {
+  background-color: #f5f5f5; /* Change to your desired hover background color */
+}
+</style>
+
 <script>
 import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
@@ -54,10 +76,6 @@ const linksList = [
 
 export default defineComponent({
   name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
 
   setup () {
     const leftDrawerOpen = ref(false)
