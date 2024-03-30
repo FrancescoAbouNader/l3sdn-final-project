@@ -2,29 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title>
-          App Management
-        </q-toolbar-title>
-
+        <q-toolbar-title> App Management </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-
         <router-link
           v-for="link in essentialLinks"
           :key="link.title"
@@ -41,7 +26,6 @@
             </q-item-section>
           </q-item>
         </router-link>
-
       </q-list>
     </q-drawer>
 
@@ -58,7 +42,7 @@
 }
 
 .router-link:hover {
-  background-color: #f5f5f5; /* Change to your desired hover background color */
+  background-color: #f5f5f5;
 }
 </style>
 
@@ -71,19 +55,25 @@ const linksList = [
     caption: 'se connecter',
     icon: 'account_circle',
     link: '/connexion'
+  },
+  {
+    title: 'Dashboard',
+    caption: 'board',
+    icon: 'home',
+    link: '/dashboard'
   }
 ]
 
 export default defineComponent({
   name: 'MainLayout',
 
-  setup () {
+  setup() {
     const leftDrawerOpen = ref(false)
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
+      toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
     }
