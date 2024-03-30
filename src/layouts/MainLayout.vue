@@ -52,13 +52,11 @@ import { defineComponent, ref } from 'vue'
 const linksList = [
   {
     title: 'Connexion',
-    caption: 'se connecter',
     icon: 'account_circle',
     link: '/connexion'
   },
   {
     title: 'Dashboard',
-    caption: 'board',
     icon: 'home',
     link: '/dashboard'
   }
