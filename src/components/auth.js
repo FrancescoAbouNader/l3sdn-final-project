@@ -1,6 +1,20 @@
 export const users = [
-  { username: 'user', password: 'password1', role: 'admin' },
-  { username: 'admin', password: 'password2', role: 'user' }
+  {
+    username: 'user',
+    password: 'password1',
+    role: 'admin',
+    firstName: 'Alexis',
+    lastName: 'Dumont',
+    gender: 'male'
+  },
+  {
+    username: 'admin',
+    password: 'password2',
+    role: 'user',
+    firstName: 'Jane',
+    lastName: 'Ariette',
+    gender: 'female'
+  }
 ]
 
 export async function login(username, password) {

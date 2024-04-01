@@ -4,7 +4,7 @@
       <h2>Liste des employés gérés</h2>
       <ManagedEmployee
         v-for="employee in managedEmployees"
-        :key="employee.id"
+        :key="employee.username"
         :employee="employee"
       />
     </div>
@@ -23,7 +23,16 @@ export default defineComponent({
   },
   data() {
     return {
-      managedEmployees: users // Utilisez les données d'utilisateurs provenant de auth.js
+      managedEmployees: []
+    }
+  },
+  created() {
+    this.loadManagedEmployees()
+  },
+  methods: {
+    loadManagedEmployees() {
+      // Charger les données des employés gérés à partir du fichier auth.js
+      this.managedEmployees = users
     }
   }
 })
