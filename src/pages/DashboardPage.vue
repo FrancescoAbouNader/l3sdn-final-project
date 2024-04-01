@@ -6,7 +6,8 @@
           <div class="text-h6">Nombre de managés</div>
         </q-card-section>
         <q-card-actions vertical align="center">
-          <q-btn flat>Voir</q-btn>
+          <!-- Gestionnaire d'événements pour rediriger vers la page des employés gérés -->
+          <q-btn flat @click="navigateToManagedEmployees">Voir</q-btn>
         </q-card-actions>
       </q-card>
 
@@ -42,7 +43,14 @@
 
 <script>
 import { defineComponent } from 'vue'
+
 export default defineComponent({
-  name: 'DashboardPage'
+  name: 'DashboardPage',
+  methods: {
+    navigateToManagedEmployees() {
+      // Redirection vers la page des employés gérés
+      this.$router.push('/managed-employees')
+    }
+  }
 })
 </script>
