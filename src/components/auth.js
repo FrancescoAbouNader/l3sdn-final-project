@@ -2,7 +2,7 @@ export const users = [
   {
     username: 'user',
     password: 'password1',
-    role: 'admin',
+    role: 'user',
     firstName: 'Alexis',
     lastName: 'Dumont',
     gender: 'male'
@@ -10,7 +10,7 @@ export const users = [
   {
     username: 'admin',
     password: 'password2',
-    role: 'user',
+    role: 'admin',
     firstName: 'Jane',
     lastName: 'Ariette',
     gender: 'female'
