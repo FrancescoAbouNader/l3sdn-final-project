@@ -1,60 +1,80 @@
 <template>
-  <q-page class="flex flex-center">
-    <q-card class="login-card">
-      <q-card-section>
-        <q-form @submit.prevent="login">
-          <q-input v-model="username" filled label="Nom d'utilisateur" dense />
-          <q-input v-model="password" filled label="Mot de passe" type="password" dense />
-          <q-btn
-            type="submit"
-            color="primary"
-            label="Se connecter"
-            class="full-width"
-            :loading="loading"
-          />
-        </q-form>
-      </q-card-section>
-    </q-card>
-  </q-page>
+  <div class="page">
+    <q-page>
+      <q-form @submit="submitForm">
+        <q-input v-model="username" label="Nom d'utilisateur" />
+        <q-input v-model="password" label="Mot de passe" type="password" />
+        <q-btn type="submit" label="Se connecter" color="primary" />
+      </q-form>
+    </q-page>
+  </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { login } from 'components/auth.js'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'ConnexionPage',
-  setup() {
-    const username = ref('')
-    const password = ref('')
-    const loading = ref(false)
-
-    const loginUser = async () => {
-      try {
-        loading.value = true
-        const user = await login(username.value, password.value)
-        if (user.role === 'admin') {
-        } else {
+  data() {
+    return {
+      users: [
+        {
+          username: 'user',
+          password: 'user',
+          role: 'user',
+          firstName: 'Alexis',
+          lastName: 'Dumont',
+          gender: 'male'
+        },
+        {
+          username: 'admin',
+          password: 'admin',
+          role: 'admin',
+          firstName: 'Jane',
+          lastName: 'Ariette',
+          gender: 'female'
         }
-      } catch (error) {
-        console.error('Erreur de connexion:', error.message)
-      } finally {
-        loading.value = false
+      ]
+    }
+  },
+  methods: {
+    submitForm() {
+      // Vérifiez les informations de connexion par rapport aux utilisateurs prédéfinis
+      const foundUser = this.users.find(user => user.username === this.username && user.password === this.password)
+
+      if (foundUser) {
+        // Redirection en fonction du rôle
+        if (foundUser.role === 'admin') {
+          this.$router.push('/admin')// Redirection vers la page admin
+        } else {
+          this.$router.push('/user') // Redirection vers la page utilisateur normale
+        }
+      } else {
+        // Affichez un message d'erreur à l'utilisateur
+        this.$q.notify({ message: 'Identifiants incorrects', color: 'negative' })
       }
     }
-
-    return { username, password, loading, login: loginUser }
   }
+
 })
 </script>
 
 <style scoped>
-.login-card {
-  max-width: 400px;
-  width: 100%;
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.full-width {
-  width: 100%;
+.q-form {
+  max-width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.q-input {
+  margin-bottom: 20px;
 }
 </style>
