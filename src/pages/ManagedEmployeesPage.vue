@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from 'vue'
 import ManagedEmployee from '../components/ManagedEmployee.vue'
-import { users } from '../components/auth.js'
+import { users } from '../pages/ConnexionPage.vue'
 
 export default defineComponent({
   name: 'ManagedEmployeesPage',
