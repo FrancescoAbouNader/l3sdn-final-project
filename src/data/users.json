@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nom": "Manager 1",
+    "role": "manager",
+    "email": "manager1@example.com",
+    "telephone": "0123456789",
+    "dateEmbauche": "2020-01-01",
+    "departement": "Département 1"
+  },
+  {
+    "id": 2,
+    "nom": "Manager 2",
+    "role": "manager",
+    "email": "manager2@example.com",
+    "telephone": "0987654321",
+    "dateEmbauche": "2019-03-15",
+    "departement": "Département 2"
+  },
+  {
+    "id": 3,
+    "nom": "Employé 1",
+    "role": "employee",
+    "email": "employee1@example.com",
+    "telephone": "1111111111",
+    "dateEmbauche": "2020-05-20",
+    "departement": "Département 1"
+  },
+  {
+    "id": 4,
+    "nom": "Employé 2",
+    "role": "employee",
+    "email": "employee2@example.com",
+    "telephone": "2222222222",
+    "dateEmbauche": "2018-11-10",
+    "departement": "Département 2"
+  }
+]

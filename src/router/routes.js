@@ -5,7 +5,11 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/connexion', component: () => import('pages/ConnexionPage.vue') },
-      { path: '/dashboard', component: () => import('pages/DashboardPage.vue') }
+      { path: '/dashboard', component: () => import('pages/DashboardPage.vue') },
+      { path: '/managed-employees', component: () => import('pages/ManagedEmployeesPage.vue') },
+      { path: '/user', component: () => import('pages/ConnexionUser.vue') },
+      { path: '/admin', component: () => import('pages/ConnexionAdmin.vue') }
+      //{ path: '/dashboard', component: () => import('pages/DashboardPage.vue') },
     ]
   },
 
