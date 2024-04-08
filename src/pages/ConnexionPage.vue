@@ -43,8 +43,6 @@ export default defineComponent({
       const foundUser = this.users.find(user => user.username === this.username && user.password === this.password)
 
       if (foundUser) {
-        // Connexion réussie
-        console.log('Connexion réussie pour', foundUser.username)
         // Redirection en fonction du rôle
         if (foundUser.role === 'admin') {
           this.$router.push('/admin')// Redirection vers la page admin
@@ -52,8 +50,6 @@ export default defineComponent({
           this.$router.push('/user') // Redirection vers la page utilisateur normale
         }
       } else {
-        // Identifiants incorrects
-        console.log('Identifiants incorrects')
         // Affichez un message d'erreur à l'utilisateur
         this.$q.notify({ message: 'Identifiants incorrects', color: 'negative' })
       }
