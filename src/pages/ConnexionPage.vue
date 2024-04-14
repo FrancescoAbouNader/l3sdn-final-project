@@ -58,23 +58,53 @@ export default defineComponent({
 
 })
 </script>
-
 <style scoped>
 .page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #dad8d8;
 }
 
 .q-form {
-  max-width: 300px;
+  max-width: 400px;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .q-input {
   margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  transition: border-color 0.3s ease;
 }
+
+.q-input:focus {
+  border-color: #007bff;
+}
+
+.q-btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.q-btn:hover {
+  background-color: #0056b3;
+  }
 </style>
+
