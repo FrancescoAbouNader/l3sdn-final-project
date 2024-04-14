@@ -1,56 +1,118 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="q-pa-md row items-start q-gutter-md">
-      <q-card class="my-card">
-        <q-card-section class="bg-primary text-white">
-          <div class="text-h6">Nombre de managés</div>
+  <div class="bento-box q-pa-md q-gutter-md">
+    <q-card
+      v-for="(item, index) in bentoItems"
+      :key="index"
+      class="bento-item animate__animated animate__fadeInUp animate__delay-1s"
+      :class="`item${index + 1}`"
+    >
+      <router-link :to="item.link" style="text-decoration: none; color: #000;">
+        <q-card-section>
+          <div class="row items-center no-wrap">
+            <q-icon :name="item.icon" size="2rem" class="q-mr-md" />
+            <div>
+              <div class="text-h6">{{ item.title }}</div>
+              <div class="text-body2">{{ item.content }}</div>
+            </div>
+          </div>
         </q-card-section>
-        <q-card-actions vertical align="center">
-          <!-- Gestionnaire d'événements pour rediriger vers la page des employés gérés -->
-          <q-btn flat @click="navigateToManagedEmployees">Voir</q-btn>
-        </q-card-actions>
-      </q-card>
-
-      <q-card class="my-card">
-        <q-card-section class="bg-purple text-white">
-          <div class="text-h6">Prochain entretien</div>
-        </q-card-section>
-        <q-card-actions vertical align="center">
-          <q-btn flat>Voir</q-btn>
-        </q-card-actions>
-      </q-card>
-
-      <q-card class="my-card">
-        <q-card-section class="bg-teal text-white">
-          <div class="text-h6">Mon manager</div>
-        </q-card-section>
-        <q-card-actions vertical align="center">
-          <q-btn flat>Voir</q-btn>
-        </q-card-actions>
-      </q-card>
-
-      <q-card class="my-card">
-        <q-card-section class="bg-grey-8 text-white">
-          <div class="text-h6">Mon prochain entretien personnel</div>
-        </q-card-section>
-        <q-card-actions vertical align="center">
-          <q-btn flat>Voir</q-btn>
-        </q-card-actions>
-      </q-card>
-    </div>
-  </q-page>
+      </router-link>
+    </q-card>
+  </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref } from 'vue'
 
-export default defineComponent({
-  name: 'DashboardPage',
-  methods: {
-    navigateToManagedEmployees() {
-      // Redirection vers la page des employés gérés
-      this.$router.push('/managed-employees')
-    }
-  }
-})
+const bentoItems = ref([
+  { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/managed-employees', icon: 'people' },
+  { title: 'Planifier un Entretien', content: 'Planifiez un nouvel entretien avec un employé en quelques étapes simples.', link: '/planifier-entretien', icon: 'event' },
+  { title: 'Mes Futurs Entretiens', content: 'Retrouvez tous les entretiens à venir dans votre agenda.', link: '/mes-entretiens', icon: 'calendar_today' },
+  { title: 'Ma Liste d\'Entretiens', content: 'Accédez à l\'historique complet de vos entretiens passés et à venir.', link: '/liste-entretiens', icon: 'list' },
+  { title: 'Mon Profil', content: 'Accédez à vos informations personnelles.', link: '/mon-profil', icon: 'account_circle' },
+])
 </script>
+
+<style scoped>
+.bento-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bento-item {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bento-item:hover {
+  transform: translateY(-5px) rotate(-2deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: #3b82f6;
+}
+
+.bento-item:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.2), transparent);
+  z-index: -1;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.item1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+
+.item2 {
+  grid-column: 3 / 5;
+  grid-row: 1 / 2;
+}
+
+.item3 {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+.item4 {
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+}
+
+.item5 {
+  grid-column: 1 / 3;
+  grid-row: 3 / 4;
+}
+</style>
+
+J'ai ajouté la règle CSS suivante :
+css
+.q-card-section a {
+  text-decoration: none;
+}
