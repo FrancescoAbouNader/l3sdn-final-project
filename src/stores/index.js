@@ -1,5 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { createPinia } from 'pinia'
+import { useUsersStore } from './UsersStore'
 
 /*
  * If not building with SSR mode, you can
@@ -12,6 +13,9 @@ import { createPinia } from 'pinia'
 
 export default store((/* { ssrContext } */) => {
   const pinia = createPinia()
+
+  // Chargement des données des utilisateurs au lancement de l'application
+  //const usersStore = useUsersStore(pinia).loadUsers()
 
   // You can add Pinia plugins here
   // pinia.use(SomePiniaPlugin)

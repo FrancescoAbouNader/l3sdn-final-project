@@ -57,9 +57,9 @@ const linksList = [
     link: '/connexion'
   },
   {
-    title: 'Dashboard',
+    title: 'Accueil',
     icon: 'home',
-    link: '/dashboard'
+    link: '/accueil'
   }
 ]
 
