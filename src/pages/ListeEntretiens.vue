@@ -28,14 +28,14 @@
                               <div class="text-caption text-grey-6 row items-center q-my-sm">
                                   <div class="col-auto q-mr-sm">
                                       <q-icon :name="getDateIcon(entretien.datetime)" :color="getDateColor(entretien.datetime)" size="1.5em" />
-                                      <q-rating v-model="ratingModel" size="3.5em" color="green-5" icon="star_border" icon-selected="star"/>
                                   </div>
                                   <div class="col">
                                       Date: {{ formatDate(entretien.datetime) }}
                                   </div>
                               </div>
                               <div class="text-caption text-grey-6">
-                                  Type d'entretien: {{ getTypeEntretien(entretien.type.value) }}
+                                  Type d'entretien: {{ getTypeEntretien(entretien.type.value) }}<br><br>
+                                  <q-rating v-model="ratingModel" size="3.5em" color="green-5" icon="star_border" icon-selected="star"/>
                               </div>
                           </q-card-section>
                       </q-card-section>
