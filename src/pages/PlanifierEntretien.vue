@@ -180,13 +180,21 @@ const types = ref([
   { label: 'Évaluation de performance', value: 'performance' }
 ])
 
+const currentUser = usersStore.currentUser
+
 onMounted(() => {
   usersStore.loadUsers()
   entretiensStore.loadEntretiens()
 
+  if (currentUser.role === 'manager') {
+    selectedManager.value = { label: currentUser.nom, value: currentUser.id }
+    step.value = 2
+  }
+
   managers.value = usersStore.users
     .filter((user) => user.role === 'manager')
     .map((user) => ({ label: user.nom, value: user.id }))
+
   employees.value = usersStore.users
     .filter((user) => user.role === 'employee')
     .map((user) => ({ label: user.nom, value: user.id }))
@@ -215,7 +223,6 @@ const filterEmployees = (val, update) => {
   })
 }
 
-
 const submitForm = async () => {
   if (
     !selectedManager.value ||
@@ -242,13 +249,11 @@ const submitForm = async () => {
     }
 
     await entretiensStore.addEntretien(entretien)
-    //console.log(entretien)
     step.value = 1
     formError.value = ''
 
     resetForm()
   } catch (error) {
-    //console.error('Erreur lors de la soumission du formulaire :', error)
     formError.value = 'Une erreur est survenue lors de la soumission du formulaire'
   } finally {
     isSubmitting.value = false
@@ -256,7 +261,7 @@ const submitForm = async () => {
 }
 
 const resetForm = () => {
-  selectedManager.value = null
+  selectedManager.value = currentUser.role === 'manager' ? { label: currentUser.nom, value: currentUser.id } : null
   selectedEmployee.value = null
   selectedDate.value = null
   selectedTime.value = null

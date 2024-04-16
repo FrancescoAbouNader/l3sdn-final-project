@@ -15,7 +15,7 @@ export default store((/* { ssrContext } */) => {
   const pinia = createPinia()
 
   // Chargement des données des utilisateurs au lancement de l'application
-  //const usersStore = useUsersStore(pinia).loadUsers()
+  useUsersStore(pinia).loadUsers()
 
   // You can add Pinia plugins here
   // pinia.use(SomePiniaPlugin)
