@@ -5,7 +5,6 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> App Management </q-toolbar-title>
-        <q-btn v-if="isAuthenticated" flat dense round icon="exit_to_app" aria-label="Se déconnecter" @click="logout" />
       </q-toolbar>
     </q-header>
 
@@ -68,11 +67,6 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false)
-    const isAuthenticated = ref(false)
-
-    const logout = () => {
-      isAuthenticated.value = false
-    }
 
     return {
       essentialLinks: linksList,

@@ -28,6 +28,7 @@
                               <div class="text-caption text-grey-6 row items-center q-my-sm">
                                   <div class="col-auto q-mr-sm">
                                       <q-icon :name="getDateIcon(entretien.datetime)" :color="getDateColor(entretien.datetime)" size="1.5em" />
+                                      <q-rating v-model="ratingModel" size="3.5em" color="green-5" icon="star_border" icon-selected="star"/>
                                   </div>
                                   <div class="col">
                                       Date: {{ formatDate(entretien.datetime) }}
@@ -286,6 +287,8 @@ const pageCourante = ref(1)
 const entretiensParPage = 6
 const entretiensAfficher = ref([])
 const dateFilter = ref('all')
+
+const ratingModel = ref(0)
 
 const nombreDePages = computed(() => Math.ceil(filteredEntretiens.value.length / entretiensParPage))
 const filteredEntretiens = computed(() => {
