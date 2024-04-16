@@ -25,7 +25,7 @@
 import { ref } from 'vue'
 
 const bentoItems = ref([
-  { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/managed-employees', icon: 'people' },
+  { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/employees', icon: 'people' },
   { title: 'Planifier un Entretien', content: 'Planifiez un nouvel entretien avec un employé en quelques étapes simples.', link: '/planifier-entretien', icon: 'event' },
   { title: 'Mes Futurs Entretiens', content: 'Retrouvez tous les entretiens à venir dans votre agenda.', link: '/mes-entretiens', icon: 'calendar_today' },
   { title: 'Ma Liste d\'Entretiens', content: 'Accédez à l\'historique complet de vos entretiens passés et à venir.', link: '/liste-entretiens', icon: 'list' },
