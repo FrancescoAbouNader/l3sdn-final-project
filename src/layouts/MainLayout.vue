@@ -4,7 +4,8 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> App Management </q-toolbar-title>
+        <q-toolbar-title> Planification d'entretien </q-toolbar-title>
+
       </q-toolbar>
     </q-header>
 
@@ -67,6 +68,7 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false)
+
 
     return {
       essentialLinks: linksList,
