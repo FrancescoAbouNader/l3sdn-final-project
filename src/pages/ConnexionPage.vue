@@ -1,110 +1,143 @@
 <template>
-  <div class="page">
-    <q-page>
-      <q-form @submit="submitForm">
-        <q-input v-model="username" label="Nom d'utilisateur" />
-        <q-input v-model="password" label="Mot de passe" type="password" />
-        <q-btn type="submit" label="Se connecter" color="primary" />
-      </q-form>
-    </q-page>
+  <div class="q-pa-md flex flex-center login-page">
+    <q-card class="login-box q-pa-lg shadow-24">
+      <q-card-section>
+        <div class="text-h4 q-mb-md">Connexion</div>
+        <q-form @submit.prevent="onSubmit">
+          <q-input
+            v-model="email"
+            label="Email"
+            outlined
+            class="q-mb-md"
+            :rules="[val => !!val || 'Veuillez saisir un email']"
+          >
+            <template v-slot:prepend>
+              <q-icon name="email" />
+            </template>
+          </q-input>
+          <q-input
+            v-model="password"
+            label="Mot de passe"
+            :type="showPassword ? 'text' : 'password'"
+            outlined
+            class="q-mb-md"
+            :rules="[val => !!val || 'Veuillez saisir un mot de passe']"
+          >
+            <template v-slot:prepend>
+              <q-icon name="lock" />
+            </template>
+            <template v-slot:append>
+              <q-btn
+                :icon="showPassword ? 'visibility_off' : 'visibility'"
+                flat
+                @click="togglePasswordVisibility"
+              />
+            </template>
+          </q-input>
+          <q-btn
+            type="submit"
+            color="primary"
+            label="Se connecter"
+            class="full-width q-mt-md"
+            :loading="loading"
+            :disable="loading"
+            @click="animateButton"
+          />
+          <q-card-section v-if="error" class="text-negative">
+            {{ error }}
+          </q-card-section>
+        </q-form>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup >
+import { ref } from 'vue'
+import { useUsersStore } from '../stores/UsersStore'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'ConnexionPage',
-  data() {
-    return {
-      users: [
-        {
-          username: 'user',
-          password: 'user',
-          role: 'user',
-          firstName: 'Alexis',
-          lastName: 'Dumont',
-          gender: 'male'
-        },
-        {
-          username: 'admin',
-          password: 'admin',
-          role: 'admin',
-          firstName: 'Jane',
-          lastName: 'Ariette',
-          gender: 'female'
-        }
-      ]
-    }
-  },
-  methods: {
-    submitForm() {
-      // Vérifiez les informations de connexion par rapport aux utilisateurs prédéfinis
-      const foundUser = this.users.find(user => user.username === this.username && user.password === this.password)
+const usersStore = useUsersStore()
+const router = useRouter()
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
+const loading = ref(false)
+const error = ref('')
 
-      if (foundUser) {
-        // Redirection en fonction du rôle
-        if (foundUser.role === 'admin') {
-          this.$router.push('/admin')// Redirection vers la page admin
-        } else {
-          this.$router.push('/user') // Redirection vers la page utilisateur normale
-        }
-      } else {
-        // Affichez un message d'erreur à l'utilisateur
-        this.$q.notify({ message: 'Identifiants incorrects', color: 'negative' })
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value
+}
+
+const onSubmit = async () => {
+  loading.value = true
+  try {
+    await usersStore.login(email.value, password.value)
+    await router.push('/accueil')
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
+}
+
+const animateButton = () => {
+  const btn = document.querySelector('.q-btn')
+  btn.classList.add('animate')
+  setTimeout(() => {
+    btn.classList.remove('animate')
+  }, 1000)
+}
+</script>
+
+<style lang="scss">
+.login-page {
+  background: linear-gradient(45deg, #0077b6, #00b7c2);
+  height: 100vh;
+  width: 100%;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(25px);
+  width: 400px;
+
+  .q-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &.animate {
+      &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        animation: ripple 1s ease-out;
       }
     }
   }
-
-})
-</script>
-<style scoped>
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #dad8d8;
 }
 
-.q-form {
-  max-width: 400px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.q-input {
-  margin-bottom: 20px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  transition: border-color 0.3s ease;
-}
-
-.q-input:focus {
-  border-color: #007bff;
-}
-
-.q-btn {
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.q-btn:hover {
-  background-color: #0056b3;
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
   }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}
 </style>
-

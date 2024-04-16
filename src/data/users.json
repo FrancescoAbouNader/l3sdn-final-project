@@ -6,7 +6,9 @@
     "email": "manager1@example.com",
     "telephone": "0123456789",
     "dateEmbauche": "2020-01-01",
-    "departement": "Département 1"
+    "departement": "Département 1",
+    "password": "password_manager1",
+    "poste": "Chef de département"
   },
   {
     "id": 2,
@@ -15,7 +17,9 @@
     "email": "manager2@example.com",
     "telephone": "0987654321",
     "dateEmbauche": "2019-03-15",
-    "departement": "Département 2"
+    "departement": "Département 2",
+    "password": "password_manager2",
+    "poste": "Chef de département"
   },
   {
     "id": 3,
@@ -24,7 +28,9 @@
     "email": "employee1@example.com",
     "telephone": "1111111111",
     "dateEmbauche": "2020-05-20",
-    "departement": "Département 1"
+    "departement": "Département 1",
+    "password": "password_employee1",
+    "poste": "Développeur"
   },
   {
     "id": 4,
@@ -33,6 +39,20 @@
     "email": "employee2@example.com",
     "telephone": "2222222222",
     "dateEmbauche": "2018-11-10",
-    "departement": "Département 2"
+    "departement": "Département 2",
+    "password": "password_employee2",
+    "poste": "Développeur"
+  },
+  {
+    "id": 5,
+    "nom": "RH 1",
+    "role": "RH",
+    "email": "rh1@example.com",
+    "telephone": "2222222222",
+    "dateEmbauche": "2018-11-10",
+    "departement": "Département 2",
+    "password": "password_rh1",
+    "poste": "Responsable RH"
   }
 ]
+

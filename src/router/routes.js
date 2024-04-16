@@ -1,25 +1,46 @@
-// router/index.js
+import { useUsersStore } from '../stores/UsersStore'
 
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    beforeEnter: (to, from, next) => {
+      const usersStore = useUsersStore()
+      if (usersStore.currentUser !== null) {
+        next()
+      } else {
+        next('/connexion')
+      }
+    },
     children: [
       { path: '', redirect: 'accueil' },
-      { path: '/connexion', component: () => import('pages/ConnexionPage.vue') },
-      { path: '/accueil', component: () => import('pages/DashboardPage.vue') },
-      { path: '/managed-employees', component: () => import('pages/ManagedEmployeesPage.vue') },
-      {path: '/user', component: () => import('pages/ConnexionUser.vue')},
-      {path : '/admin', component: () => import('pages/ConnexionAdmin.vue')},
-
+      { path: 'accueil', component: () => import('pages/DashboardPage.vue') },
+      { path: 'employees', component: () => import('pages/ManagedEmployeesPage.vue') },
       { path: 'planifier-entretien', component: () => import('pages/PlanifierEntretien.vue') },
+      { path: 'entretiens', component: () => import('pages/EntretiensPage.vue') },
       { path: 'liste-entretiens', component: () => import('pages/ListeEntretiens.vue') },
-      { path: 'mes-entretiens', component: () => import('pages/MesEntretiens.vue') }
-
+      { path: 'mes-entretiens', component: () => import('pages/MesEntretiens.vue') },
+      { path: 'mon-profil', component: () => import('pages/ProfilPage.vue') },
     ]
   },
-  // Always leave this as last one,
-  // but you can also remove it
+  {
+    path: '/connexion',
+    component: () => import('layouts/ConnexionLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/ConnexionPage.vue'),
+        beforeEnter: (to, from, next) => {
+          const usersStore = useUsersStore()
+          if (usersStore.currentUser === null) {
+            next()
+          } else {
+            next('/accueil')
+          }
+        }
+      }
+    ]
+  },
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')

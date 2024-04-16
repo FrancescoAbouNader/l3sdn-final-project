@@ -268,6 +268,8 @@ import { useUsersStore } from '../stores/UsersStore'
 const usersStore = useUsersStore()
 const entretiensStore = useEntretiensStore()
 
+const currentUser = usersStore.currentUser
+
 const entretiens = ref([])
 const selectedEntretien = ref(null)
 const selectedDate = ref(null)
@@ -288,7 +290,6 @@ const dateFilter = ref('all')
 const nombreDePages = computed(() => Math.ceil(filteredEntretiens.value.length / entretiensParPage))
 const filteredEntretiens = computed(() => {
   const today = new Date().setHours(0, 0, 0, 0)
-
   if (dateFilter.value === 'past') {
     return entretiens.value.filter(entretien => {
       const entretienDate = new Date(entretien.datetime).setHours(0, 0, 0, 0)
@@ -311,7 +312,7 @@ const filteredEntretiens = computed(() => {
 
 const objectifsManages = reactive([])
 
-const managers = ref([])
+//const managers = ref([])
 const types = ref([
   { label: 'Entretien annuel', value: 'annuel' },
   { label: 'Entretien de suivi', value: 'suivi' },
@@ -321,6 +322,7 @@ const types = ref([
 const showDetailsModal = ref(false)
 const showEditerModal = ref(false)
 
+/*
 onMounted(() => {
   usersStore.loadUsers()
   entretiensStore.loadEntretiens()
@@ -332,6 +334,14 @@ onMounted(() => {
     .map((user) => ({ label: user.nom, value: user.id }))
 
     mettreAJourEntretiensAfficher()
+})
+*/
+
+onMounted(() => {
+  usersStore.loadUsers()
+  entretiensStore.loadEntretiens()
+  entretiens.value = entretiensStore.entretiens.filter(entretien => entretien.manager === currentUser.id)
+  mettreAJourEntretiensAfficher()
 })
 
 watch(filteredEntretiens, () => {
