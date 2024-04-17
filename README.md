@@ -14,6 +14,10 @@ npm install
 quasar dev
 ```
 
+### You can logging with the next email and password
+> E-mail : ```root```
+> Password : ```root```
+
 
 ### Lint the files
 ```bash
