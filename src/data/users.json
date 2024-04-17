@@ -3,11 +3,11 @@
     "id": 1,
     "nom": "Manager 1",
     "role": "manager",
-    "email": "manager1@example.com",
+    "email": "manager1",
     "telephone": "0123456789",
     "dateEmbauche": "2020-01-01",
     "departement": "Département 1",
-    "password": "password_manager1",
+    "password": "admin",
     "poste": "Chef de département"
   },
   {

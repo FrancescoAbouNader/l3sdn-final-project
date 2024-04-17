@@ -14,6 +14,7 @@ const routes = [
     },
     children: [
       { path: '', redirect: 'accueil' },
+      { path: 'test', component: () => import('pages/IndexPage.vue') },
       { path: 'accueil', component: () => import('pages/DashboardPage.vue') },
       { path: 'test', component: () => import('pages/IndexPage.vue') },
       { path: 'employees', component: () => import('pages/ManagedEmployeesPage.vue') },
