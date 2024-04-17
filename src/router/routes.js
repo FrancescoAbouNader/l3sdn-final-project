@@ -15,6 +15,7 @@ const routes = [
     children: [
       { path: '', redirect: 'accueil' },
       { path: 'accueil', component: () => import('pages/DashboardPage.vue') },
+      { path: 'test', component: () => import('pages/IndexPage.vue') },
       { path: 'employees', component: () => import('pages/ManagedEmployeesPage.vue') },
       { path: 'planifier-entretien', component: () => import('pages/PlanifierEntretien.vue') },
       { path: 'entretiens', component: () => import('pages/EntretiensPage.vue') },

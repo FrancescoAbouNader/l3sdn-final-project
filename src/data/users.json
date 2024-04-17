@@ -53,6 +53,28 @@
     "departement": "Département 2",
     "password": "password_rh1",
     "poste": "Responsable RH"
+  },
+  {
+    "id": 6,
+    "nom": "Testeur 1",
+    "role": "RH",
+    "email": "root",
+    "telephone": "0123456789",
+    "dateEmbauche": "2020-01-01",
+    "departement": "Département 1",
+    "password": "root",
+    "poste": "Testeur"
+  },
+  {
+    "id": 7,
+    "nom": "Testeur 2",
+    "role": "RH",
+    "email": "admin",
+    "telephone": "0123456789",
+    "dateEmbauche": "2020-01-01",
+    "departement": "Département 1",
+    "password": "admin",
+    "poste": "Testeur"
   }
 ]
 
