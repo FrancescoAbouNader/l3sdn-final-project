@@ -1,7 +1,7 @@
 <template>
   <div class="bento-box q-pa-md q-gutter-md">
     <q-card
-      v-for="(item, index) in bentoItems"
+      v-for="(item, index) in filteredBentoItems"
       :key="index"
       class="bento-item animate__animated animate__fadeInUp animate__delay-1s"
       :class="`item${index + 1}`"
@@ -22,15 +22,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useUsersStore } from '../stores/UsersStore'
+import { ref, computed } from 'vue'
 
 const bentoItems = ref([
-  { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/employees', icon: 'people' },
-  { title: 'Planifier un Entretien', content: 'Planifiez un nouvel entretien avec un employé en quelques étapes simples.', link: '/planifier-entretien', icon: 'event' },
-  { title: 'Mes Futurs Entretiens', content: 'Retrouvez tous les entretiens à venir dans votre agenda.', link: '/mes-entretiens', icon: 'calendar_today' },
-  { title: 'Ma Liste d\'Entretiens', content: 'Accédez à l\'historique complet de vos entretiens passés et à venir.', link: '/liste-entretiens', icon: 'list' },
-  { title: 'Mon Profil', content: 'Accédez à vos informations personnelles.', link: '/mon-profil', icon: 'account_circle' },
+  { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/employees', icon: 'people', roles: ['RH', 'manager'] },
+  { title: 'Planifier un Entretien', content: 'Planifiez un nouvel entretien avec un employé en quelques étapes simples.', link: '/planifier-entretien', icon: 'event_note', roles: ['RH', 'manager'] },
+  { title: 'Mes Entretiens', content: 'Retrouvez tous les entretiens passés et à venir dans votre agenda.', link: '/mes-entretiens', icon: 'calendar_today', roles: ['RH', 'manager', 'employee'] },
+  { title: 'Mes Entretiens Planifiés', content: 'Accédez à l\'historique complet de vos entretiens que vous avez planifiés.', link: '/liste-entretiens', icon: 'list', roles: ['RH', 'manager'] },
+  { title: 'Tous les Entretiens', content: 'Accédez à l\'historique complet des entretiens de l\'entreprise.', link: '/entretiens', icon: 'checklist', roles: ['RH'] },
+  { title: 'Mon Profil', content: 'Accédez à vos informations personnelles.', link: '/mon-profil', icon: 'account_circle', roles: ['RH', 'manager', 'employee'] }
 ])
+
+const usersStore = useUsersStore()
+const filteredBentoItems = computed(() => {
+  const currentUserRole = usersStore.currentUser?.role
+  if (!currentUserRole) return []
+  return bentoItems.value.filter(item => item.roles.includes(currentUserRole))
+})
 </script>
 
 <style scoped>
@@ -106,13 +115,12 @@ const bentoItems = ref([
 }
 
 .item5 {
-  grid-column: 1 / 3;
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
+}
+
+.item6 {
+  grid-column: 4 / 5;
   grid-row: 3 / 4;
 }
 </style>
-
-J'ai ajouté la règle CSS suivante :
-css
-.q-card-section a {
-  text-decoration: none;
-}
