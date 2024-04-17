@@ -3,7 +3,7 @@
     <q-card
       v-for="(item, index) in filteredBentoItems"
       :key="index"
-      class="bento-item animate__animated animate__fadeInUp animate__delay-1s"
+      class=" bento-item animate__animated animate__fadeInUp animate__delay-1s"
       :class="`item${index + 1}`"
     >
       <router-link :to="item.link" style="text-decoration: none; color: #000;">
@@ -50,6 +50,7 @@ const filteredBentoItems = computed(() => {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 
 .bento-item {
   background-color: #fff;
@@ -123,4 +124,6 @@ const filteredBentoItems = computed(() => {
   grid-column: 4 / 5;
   grid-row: 3 / 4;
 }
+
+
 </style>

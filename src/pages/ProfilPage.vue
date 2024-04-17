@@ -170,7 +170,7 @@ const resetForm = () => {
   align-items: center;
 }
 
-.profile-card {
+.profile-card--light {
   width: 100%;
   max-width: 800px;
   background-color: white;
