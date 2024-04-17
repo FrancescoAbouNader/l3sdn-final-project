@@ -41,6 +41,56 @@
             </q-item-section>
           </q-item>
         </router-link>
+        <router-link to="/employees" class="router-link">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon name="group" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Liste des utilisateurs</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link to="/planifier-entretien" class="router-link">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon name="event" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Planifier un entretien</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link to="/mes-entretiens" class="router-link">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon name="event_note" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Mes entretiens</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link to="/liste-entretiens" class="router-link">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon name="schedule" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Mes entretiens planifiés</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link to="/mon-profil" class="router-link">
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon name="account_circle" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Mon profil</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
       </q-list>
     </q-drawer>
 

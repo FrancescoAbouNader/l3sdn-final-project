@@ -1,6 +1,6 @@
 <template>
   <div class="liste-entretiens">
-    <h1 class="text-primary animate__animated animate__fadeInDown">Mes entretiens</h1>
+    <h1 class="text-primary animate__animated animate__fadeInDown"></h1>
     <div v-if="entretiens.length === 0" class="animate__animated animate__fadeInUp">
       <p>Aucun entretien trouvé.</p>
     </div>
