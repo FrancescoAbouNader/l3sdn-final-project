@@ -16,6 +16,7 @@
             </div>
           </div>
           <div class="header-actions">
+            <q-btn flat dense round class="dark light" icon="dark_mode" @click="toggleDarkMode" />
             <q-btn flat round icon="settings" to="/mon-profil" />
             <q-btn flat round icon="logout" @click="logout" />
           </div>
@@ -54,6 +55,7 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUsersStore } from '../stores/UsersStore'
+import {useQuasar} from 'quasar'
 
 const linksList = [
   {
@@ -73,10 +75,23 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false)
+    const darkModeEnabled = ref(false)
     const router = useRouter()
     const usersStore = useUsersStore()
 
     const currentUser = usersStore.currentUser
+
+    const $q = useQuasar()
+    const toggleDarkMode = () => {
+      $q.dark.toggle()
+      darkModeEnabled.value = $q.dark.isActive
+
+      if ($q.dark.isActive) {
+        document.body.classList.add('dark')
+      } else {
+        document.body.classList.remove('dark')
+      }
+    }
 
     const logout = () => {
       usersStore.logout()
@@ -100,7 +115,8 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       logout,
-      getInitials
+      getInitials,
+      toggleDarkMode
     }
   }
 })
@@ -157,5 +173,26 @@ export default defineComponent({
 .user-role {
   color: #d1d1d1;
   font-size: 0.8rem;
+}
+
+/* Styles for Dark Mode */
+.dark {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.light {
+  background-color: #ffffff;
+  color: #1e1e1e;
+}
+
+.body--dark{
+  background-color: black;
+  color: white
+}
+
+.body--light{
+  background-color: white;
+  color: black
 }
 </style>
