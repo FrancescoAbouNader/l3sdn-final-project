@@ -35,11 +35,17 @@ export const useUsersStore = defineStore({
       this.currentUser = null
       SessionStorage.set('userData', [])
     },
+    async addUser(newUser) {
+      console.log(newUser)
+      newUser.id = Date.now().toString()
+      this.users.push(newUser)
+      this.saveUser()
+    },
     async updateUser(updatedUser) {
       const index = this.users.findIndex(user => user.id === updatedUser.id)
       if (index !== -1) {
         this.users[index] = updatedUser
-        api.put('/users', this.users)
+        this.saveUser()
       } else {
         throw new Error('Utilisateur non trouvé')
       }
@@ -49,7 +55,7 @@ export const useUsersStore = defineStore({
       if (index !== -1) {
         this.users[index] = updatedUser
         this.currentUser = updatedUser
-        api.put('/users', this.users)
+        this.saveUser()
       } else {
         throw new Error('Utilisateur non trouvé')
       }
@@ -57,10 +63,13 @@ export const useUsersStore = defineStore({
     async deleteUser(userId) {
       try {
         this.users = this.users.filter(user => user.id !== userId)
-        api.put('/users', this.users)
+        this.saveUser()
       } catch (error) {
         throw new Error('Une erreur est survenue lors de la suppression de l\'utilisateur')
       }
+    },
+    saveUser() {
+      api.put('/users', this.users)
     }
   }
 })

@@ -53,8 +53,8 @@
             <q-input v-model="newUser.email" label="Email" filled required />
             <q-input v-model="newUser.telephone" label="Téléphone" filled required />
             <q-select v-model="newUser.role" :options="roles" label="Rôle" filled required />
-            <q-input v-model="newUser.password" type="password" label="Mot de passe" filled required />
-            <q-input v-model="newUser.dateEmbauche" filled mask="date">
+            <q-input v-model="newUser.password" type="password" label="Mot de passe" class="q-my-md" filled required />
+            <q-input v-model="newUser.dateEmbauche" filled mask="date" label="Date d'embauche">
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -94,7 +94,9 @@
             <q-input v-model="editedUser.email" label="Email" filled required />
             <q-input v-model="editedUser.telephone" label="Téléphone" filled required />
             <q-select v-model="editedUser.role" :options="roles" label="Rôle" filled required />
-            <q-input v-model="editedUser.password" type="password" label="Mot de passe" filled />
+            <q-input v-model="editedUser.password" type="password" label="Mot de passe" class="q-my-md" filled />
+            <q-input v-model="editedUser.departement" label="Département" filled required />
+            <q-input v-model="editedUser.poste" label="Poste" filled required />
             <q-banner v-if="formError" color="negative" class="q-mt-md">{{ formError }}</q-banner>
             <div class="q-mt-md">
               <q-btn type="submit" label="Enregistrer" color="primary" class="q-mr-sm" :disable="isSubmitting" />
@@ -118,7 +120,6 @@ const showAddUserModal = ref(false)
 const showEditUserModal = ref(false)
 const editedUser = ref({})
 const newUser = ref({
-  id: null,
   nom: '',
   email: '',
   telephone: '',
@@ -174,12 +175,14 @@ const addUser = async () => {
     await usersStore.addUser(newUser.value)
     showAddUserModal.value = false
     newUser.value = {
-      id: null,
       nom: '',
       email: '',
       telephone: '',
       role: '',
-      password: ''
+      password: '',
+      dateEmbauche: '',
+      departement: '',
+      poste: ''
     }
     formError.value = ''
     loadUsers()
