@@ -24,76 +24,28 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <router-link
-          v-for="link in essentialLinks"
-          :key="link.title"
-          :to="link.link"
-          class="router-link"
-        >
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ link.title }}</q-item-label>
-              <q-item-label caption>{{ link.caption }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-        <router-link to="/employees" class="router-link">
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon name="group" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Liste des utilisateurs</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-        <router-link to="/planifier-entretien" class="router-link">
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon name="event" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Planifier un entretien</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-        <router-link to="/mes-entretiens" class="router-link">
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon name="event_note" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Mes entretiens</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-        <router-link to="/liste-entretiens" class="router-link">
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon name="schedule" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Mes entretiens planifiés</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-        <router-link to="/mon-profil" class="router-link">
-          <q-item clickable>
-            <q-item-section avatar>
-              <q-icon name="account_circle" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Mon profil</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
-      </q-list>
-    </q-drawer>
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered :mini="miniMode" @click.capture="toggleMiniMode">
+    <q-list>
+      <q-item
+        v-for="link in essentialLinks"
+        :key="link.title"
+        :to="link.link"
+        clickable
+        :class="{ 'active': $route.path === link.link }"
+        :exact-active-class="'active'"
+        exact
+        as="router-link"
+      >
+        <q-item-section avatar>
+          <q-icon :name="link.icon" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{ link.title }}</q-item-label>
+          <q-item-label caption>{{ link.caption }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -117,6 +69,31 @@ const linksList = [
     title: 'Accueil',
     icon: 'home',
     link: '/accueil'
+  },
+  {
+    title: 'Liste des utilisateurs',
+    icon: 'group',
+    link: '/employees'
+  },
+  {
+    title: 'Planifier un entretien',
+    icon: 'event',
+    link: '/planifier-entretien'
+  },
+  {
+    title: 'Mes entretiens',
+    icon: 'event_note',
+    link: '/mes-entretiens'
+  },
+  {
+    title: 'Mes entretiens planifiés',
+    icon: 'schedule',
+    link: '/liste-entretiens'
+  },
+  {
+    title: 'Mon profil',
+    icon: 'account_circle',
+    link: '/mon-profil'
   }
 ]
 
@@ -128,6 +105,7 @@ export default defineComponent({
     const darkModeEnabled = ref(false)
     const router = useRouter()
     const usersStore = useUsersStore()
+    const miniMode =  ref(true)
 
     const currentUser = usersStore.currentUser
 
@@ -141,6 +119,10 @@ export default defineComponent({
       } else {
         document.body.classList.remove('dark')
       }
+    }
+
+    const toggleMiniMode = () => {
+      miniMode.value = !miniMode.value
     }
 
     const logout = () => {
@@ -161,12 +143,14 @@ export default defineComponent({
       essentialLinks: linksList,
       leftDrawerOpen,
       currentUser,
+      miniMode,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       logout,
       getInitials,
-      toggleDarkMode
+      toggleDarkMode,
+      toggleMiniMode
     }
   }
 })
