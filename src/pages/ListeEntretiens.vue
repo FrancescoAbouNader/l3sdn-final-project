@@ -9,13 +9,17 @@
           <div class="filter-container animate__animated animate__fadeInDown">
               <div class="text-subtitle2 q-mb-sm animate__animated animate__fadeInUp">Filtrer par date</div>
               <q-btn-toggle v-model="dateFilter" spread no-caps toggle-color="primary" :options="[
-          { label: 'Passés', value: 'past', icon: 'event_busy' },
-          { label: 'Aujourd\'hui', value: 'today', icon: 'event_available' },
-          { label: 'À venir', value: 'future', icon: 'event_note' }
-        ]" class="animate__animated animate__fadeInUp animate__delay-1s" />
+                { label: 'Passés', value: 'past', icon: 'event_busy' },
+                { label: 'Aujourd\'hui', value: 'today', icon: 'event_available' },
+                { label: 'À venir', value: 'future', icon: 'event_note' }
+              ]" class="animate__animated animate__fadeInUp animate__delay-1s" />
           </div>
       </div>
       <div class="q-gutter-md flex justify-center">
+        <div v-if="entretiens.length === 0">
+          AUCUN ENTRETIEN.
+        </div>
+        <div v-else>
           <transition-group name="fade">
               <q-card v-for="entretien in entretiensAfficher" :key="entretien.id" class="my-card q-col-md-6 animate__animated animate__fadeInUp animate__delay-1s">
                   <div class="card-content">
@@ -53,6 +57,7 @@
                   </div>
               </q-card>
           </transition-group>
+        </div>
       </div>
       <div class="q-my-md flex justify-center">
           <q-pagination v-model="pageCourante" :max="nombreDePages" :max-pages="6" boundary-links boundary-numbers color="primary" @update:model-value="mettreAJourEntretiensAfficher" />
@@ -315,7 +320,6 @@ const filteredEntretiens = computed(() => {
 
 const objectifsManages = reactive([])
 
-//const managers = ref([])
 const types = ref([
   { label: 'Entretien annuel', value: 'annuel' },
   { label: 'Entretien de suivi', value: 'suivi' },
@@ -324,21 +328,6 @@ const types = ref([
 
 const showDetailsModal = ref(false)
 const showEditerModal = ref(false)
-
-/*
-onMounted(() => {
-  usersStore.loadUsers()
-  entretiensStore.loadEntretiens()
-
-  entretiens.value = entretiensStore.entretiens
-
-  managers.value = usersStore.users
-    .filter((user) => user.role === 'manager')
-    .map((user) => ({ label: user.nom, value: user.id }))
-
-    mettreAJourEntretiensAfficher()
-})
-*/
 
 onMounted(() => {
   usersStore.loadUsers()

@@ -53,7 +53,22 @@
             <q-input v-model="newUser.email" label="Email" filled required />
             <q-input v-model="newUser.telephone" label="Téléphone" filled required />
             <q-select v-model="newUser.role" :options="roles" label="Rôle" filled required />
-            <q-input v-model="newUser.password" type="password" label="Mot de passe" filled required />
+            <q-input v-model="newUser.password" type="password" label="Mot de passe" class="q-my-md" filled required />
+            <q-input v-model="newUser.dateEmbauche" filled mask="date" label="Date d'embauche">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="newUser.dateEmbauche" label="Date d'embauche">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="Fermer" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+            </q-input>
+            <q-input v-model="newUser.departement" label="Département" filled required />
+            <q-input v-model="newUser.poste" label="Poste" filled required />
             <q-banner v-if="formError" color="negative" class="q-mt-md">{{ formError }}</q-banner>
             <div class="q-mt-md">
               <q-btn type="submit" label="Ajouter" color="primary" class="q-mr-sm" :disable="isSubmitting" />
@@ -79,7 +94,9 @@
             <q-input v-model="editedUser.email" label="Email" filled required />
             <q-input v-model="editedUser.telephone" label="Téléphone" filled required />
             <q-select v-model="editedUser.role" :options="roles" label="Rôle" filled required />
-            <q-input v-model="editedUser.password" type="password" label="Mot de passe" filled />
+            <q-input v-model="editedUser.password" type="password" label="Mot de passe" class="q-my-md" filled />
+            <q-input v-model="editedUser.departement" label="Département" filled required />
+            <q-input v-model="editedUser.poste" label="Poste" filled required />
             <q-banner v-if="formError" color="negative" class="q-mt-md">{{ formError }}</q-banner>
             <div class="q-mt-md">
               <q-btn type="submit" label="Enregistrer" color="primary" class="q-mr-sm" :disable="isSubmitting" />
@@ -107,7 +124,10 @@ const newUser = ref({
   email: '',
   telephone: '',
   role: '',
-  password: ''
+  password: '',
+  dateEmbauche: '',
+  departement: '',
+  poste: ''
 })
 const formError = ref('')
 const isSubmitting = ref(false)
@@ -159,7 +179,10 @@ const addUser = async () => {
       email: '',
       telephone: '',
       role: '',
-      password: ''
+      password: '',
+      dateEmbauche: '',
+      departement: '',
+      poste: ''
     }
     formError.value = ''
     loadUsers()

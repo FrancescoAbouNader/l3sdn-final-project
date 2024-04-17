@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { api } from 'src/boot/axios'
 
 export const useEntretiensStore = defineStore('entretiens', {
   state: () => ({
@@ -6,14 +7,17 @@ export const useEntretiensStore = defineStore('entretiens', {
   }),
   actions: {
     loadEntretiens() {
-      const savedEntretiens = localStorage.getItem('entretiens')
-      if (savedEntretiens) {
-        this.entretiens = JSON.parse(savedEntretiens)
-      }
+      const response = api.get('/entretiens')
+      response
+      .then((result) => {
+        this.entretiens = result.data
+      })
+      .catch(() => {
+        this.entretiens = []
+      })
     },
     addEntretien(entretien) {
-      // Attribuer un identifiant unique à l'entretien
-      const id = Date.now().toString() // Utilisation du timestamp comme identifiant
+      const id = Date.now().toString()
       entretien.id = id
 
       this.entretiens.push(entretien)
@@ -21,20 +25,20 @@ export const useEntretiensStore = defineStore('entretiens', {
     },
     updateEntretien(updatedEntretien) {
       const index = this.entretiens.findIndex((entretien) => entretien.id === updatedEntretien.id)
+      //console.log('FONDED')
       if (index !== -1) {
-        console.log('FOUNDED')
-        console.log(updatedEntretien)
-        // Mettre à jour les propriétés de l'entretien
+        //console.log(updatedEntretien)
+
         this.entretiens[index] = { ...this.entretiens[index], ...updatedEntretien }
-        console.log('Actual value')
-        console.log(this.entretiens[index])
+        //console.log('Actual value')
+        //console.log(this.entretiens[index])
         this.saveEntretiens()
       } else {
         console.error('Entretien non trouvé')
       }
     },
     saveEntretiens() {
-      localStorage.setItem('entretiens', JSON.stringify(this.entretiens))
+      api.put('/entretiens', this.entretiens)
     }
   }
 })
