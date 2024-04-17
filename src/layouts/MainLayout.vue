@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="header-actions">
-            <q-btn flat dense round class="dark light" icon="dark_mode" @click="toggleDarkMode" />
+            <q-btn flat dense round icon="dark_mode" @click="toggleDarkMode" />
             <q-btn flat round icon="settings" to="/mon-profil" />
             <q-btn flat round icon="logout" @click="logout" />
           </div>
@@ -225,16 +225,7 @@ export default defineComponent({
   font-size: 0.8rem;
 }
 
-/* Styles for Dark Mode */
-.dark {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
 
-.light {
-  background-color: #ffffff;
-  color: #1e1e1e;
-}
 
 .body--dark{
   background-color: black;
