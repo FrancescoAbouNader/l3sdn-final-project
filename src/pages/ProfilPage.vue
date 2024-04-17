@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page q-pa-md">
+  <div class="profile-page q-pa-md" :class="{ 'profile-page-dark': $q.dark.isActive }">
     <h1 class="text-primary animate__animated animate__fadeInDown">Mon Profil</h1>
 
     <q-card class="profile-card q-pa-lg animate__animated animate__fadeInUp">
@@ -168,6 +168,11 @@ const resetForm = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.profile-page-dark {
+  background-color: #333 !important;
+  color: #fff !important;
 }
 
 .profile-card--light {

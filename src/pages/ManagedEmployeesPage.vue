@@ -1,5 +1,5 @@
 <template>
-  <div class="users-page q-pa-md">
+  <div class="users-page q-pa-md" :class="{ 'users-page-dark': $q.dark.isActive }">
     <h1 class="text-primary animate__animated animate__fadeInDown">Liste des Utilisateurs</h1>
 
     <div class="q-mb-md flex justify-between items-center animate__animated animate__fadeInUp">
@@ -232,6 +232,11 @@ const deleteUser = async (user) => {
   justify-content: center;
   align-items: center;
   padding: 2rem;
+}
+
+.users-page-dark {
+  background-color: #333 !important;
+  color: #fff !important;
 }
 
 .users-page h1 {
