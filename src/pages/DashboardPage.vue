@@ -3,16 +3,15 @@
     <q-card
       v-for="(item, index) in filteredBentoItems"
       :key="index"
-      class=" bento-item animate__animated animate__fadeInUp animate__delay-1s"
-      :class="`item${index + 1}`"
-    >
+      class="{ 'bento-item--dark': $q.dark.isActive } animate__animated animate__fadeInUp animate__delay-1s"
+      :class="`item${index + 1}`"    >
       <router-link :to="item.link" style="text-decoration: none; color: #000;">
         <q-card-section>
           <div class="row items-center no-wrap">
-            <q-icon :name="item.icon" size="2rem" class="q-mr-md" />
+            <q-icon :name="item.icon" size="2rem" class="q-mr-md" :class="{ 'icon-dark': $q.dark.isActive }" />
             <div>
-              <div class="text-h6">{{ item.title }}</div>
-              <div class="text-body2">{{ item.content }}</div>
+              <div class="text-h6" :class="{ 'text-dark': $q.dark.isActive }">{{ item.title }}</div>
+              <div class="text-body2" :class="{ 'text-dark': $q.dark.isActive }">{{ item.content }}</div>
             </div>
           </div>
         </q-card-section>
@@ -24,6 +23,9 @@
 <script setup>
 import { useUsersStore } from '../stores/UsersStore'
 import { ref, computed } from 'vue'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 const bentoItems = ref([
   { title: 'Les Employés', content: 'Consultez la liste des employés de l\'entreprise et accédez à leurs informations.', link: '/employees', icon: 'people', roles: ['RH', 'manager'] },
@@ -51,7 +53,6 @@ const filteredBentoItems = computed(() => {
   margin: 0 auto;
 }
 
-
 .bento-item {
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,6 +61,11 @@ const filteredBentoItems = computed(() => {
   border: 2px solid transparent;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.bento-item--dark {
+  background-color: #1e1e1e; /* Dark mode background color */
+  color: white;
 }
 
 .bento-item:hover {
@@ -78,6 +84,14 @@ const filteredBentoItems = computed(() => {
   background: radial-gradient(circle at center, rgba(59, 130, 246, 0.2), transparent);
   z-index: -1;
   animation: pulse 1s infinite;
+}
+
+.icon-dark {
+  color: #ffffff;
+}
+
+.text-dark {
+  color: #ffffff !important;
 }
 
 @keyframes pulse {
@@ -124,6 +138,4 @@ const filteredBentoItems = computed(() => {
   grid-column: 4 / 5;
   grid-row: 3 / 4;
 }
-
-
 </style>
