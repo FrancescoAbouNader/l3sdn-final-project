@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { api } from 'src/boot/axios'
 
 export const useEntretiensStore = defineStore('entretiens', {
   state: () => ({

@@ -54,6 +54,21 @@
             <q-input v-model="newUser.telephone" label="Téléphone" filled required />
             <q-select v-model="newUser.role" :options="roles" label="Rôle" filled required />
             <q-input v-model="newUser.password" type="password" label="Mot de passe" filled required />
+            <q-input v-model="newUser.dateEmbauche" filled mask="date">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="newUser.dateEmbauche" label="Date d'embauche">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="Fermer" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+            </q-input>
+            <q-input v-model="newUser.departement" label="Département" filled required />
+            <q-input v-model="newUser.poste" label="Poste" filled required />
             <q-banner v-if="formError" color="negative" class="q-mt-md">{{ formError }}</q-banner>
             <div class="q-mt-md">
               <q-btn type="submit" label="Ajouter" color="primary" class="q-mr-sm" :disable="isSubmitting" />
@@ -103,11 +118,15 @@ const showAddUserModal = ref(false)
 const showEditUserModal = ref(false)
 const editedUser = ref({})
 const newUser = ref({
+  id: null,
   nom: '',
   email: '',
   telephone: '',
   role: '',
-  password: ''
+  password: '',
+  dateEmbauche: '',
+  departement: '',
+  poste: ''
 })
 const formError = ref('')
 const isSubmitting = ref(false)
@@ -155,6 +174,7 @@ const addUser = async () => {
     await usersStore.addUser(newUser.value)
     showAddUserModal.value = false
     newUser.value = {
+      id: null,
       nom: '',
       email: '',
       telephone: '',
