@@ -91,7 +91,7 @@ const filteredBentoItems = computed(() => {
 }
 
 .text-dark {
-  color: #ffffff !important;
+  color: #ffffff !important; /* Pour ignorer le reste du css */
 }
 
 @keyframes pulse {
