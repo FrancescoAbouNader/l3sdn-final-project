@@ -65,7 +65,7 @@
               </q-btn>
           </q-bar>
 
-          <q-card-section class="q-pa-md" style="max-height: 60vh; overflow-y: auto;">
+          <q-card-section class="q-pa-md" style="max-height: 60vh; overflow-y: auto;" :class="{ 'dark': $q.dark.isActive }">
               <div class="text-body1">
                   <div class="q-mb-md">
                       <div class="text-subtitle2 q-mb-xs">Manager</div>
@@ -267,3 +267,11 @@ const getTypeEntretien = (type) => {
 
 </script>
 
+<style scoped>
+
+.dark {
+  background-color: #424242;
+  color: dark;
+}
+
+</style>
