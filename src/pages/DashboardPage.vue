@@ -64,7 +64,7 @@ const filteredBentoItems = computed(() => {
 }
 
 .bento-item--dark {
-  background-color: #1e1e1e; /* Dark mode background color */
+  background-color: #1e1e1e;
   color: white;
 }
 
