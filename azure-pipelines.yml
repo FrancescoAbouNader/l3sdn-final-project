@@ -9,5 +9,5 @@ steps:
   displayName: 'Build Docker image'
   inputs:
     command: 'build'
-    Dockerfile: 'src/Dockerfile'
+    Dockerfile: 'src/dockerfile'
     tags: 'my-docker-image:latest'
